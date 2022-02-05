@@ -45,7 +45,7 @@ resource "aws_instance" "aws_instance" {
   # run docker install command
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_version} --acme-domain ${var.aws_route_record_name}.${var.aws_route_zone_name}"
+      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_version}"
     ]
   }
 }
