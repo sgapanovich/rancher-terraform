@@ -26,11 +26,11 @@ resource "aws_instance" "aws_instance" {
   key_name = var.aws_key_name
 
   root_block_device {
-    volume_size = 20
+    volume_size = var.aws_instance_size
   }
 
   tags = {
-    Name = "sergei_terraform"
+    Name = var.aws_instance_name
   }
 
   # SSH into the instance
@@ -45,7 +45,7 @@ resource "aws_instance" "aws_instance" {
   # run docker install command
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_version}"
+      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_version} --acme-domain ${var.aws_route_record_name}.${var.aws_route_zone_name}"
     ]
   }
 }
@@ -69,7 +69,7 @@ resource "aws_route53_record" "route_53_record" {
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = var.aws_route_record_name
   type    = "A" 
-  ttl     = "604800" # 1 week
+  ttl     = "300"
   records = [aws_instance.aws_instance.public_ip]
 }
 
@@ -87,6 +87,9 @@ variable "aws_instance_type" {}
 variable "aws_subnet" {}
 variable "aws_security_group" {}
 variable "aws_key_name" {}
+variable "aws_instance_size" {}
+variable "aws_instance_name" {}
+
 variable "aws_route_zone_name" {}
 variable "aws_route_record_name" {}
 
