@@ -21,7 +21,7 @@ provider "aws" {
 resource "aws_instance" "aws_instance" {
   ami             = var.aws_ami
   instance_type   = var.aws_instance_type
-  subnet_id       = var.aws_subnet
+  subnet_id       = var.aws_subnet_a
   vpc_security_group_ids = [var.aws_security_group]
   key_name = var.aws_key_name
 
