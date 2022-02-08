@@ -18,7 +18,7 @@ provider "aws" {
 
 ############################# E C 2 #############################
 ############################# I N S T A N C E S #############################
-# resource to create an instance
+# create 3 instances 
 resource "aws_instance" "aws_instance" {
   count = 3
   ami                    = var.aws_ami
@@ -32,13 +32,12 @@ resource "aws_instance" "aws_instance" {
   }
 
   tags = {
-    Name = "${var.aws_prefix} ${count.index}"
+    Name = "${var.aws_prefix}-${count.index}"
   }
 }
 
 
 ############################# L O A D   B A L A N C E R #############################
-
 # create a target group for 80
 resource "aws_lb_target_group" "aws_lb_target_group_80" {
   name        = "${var.aws_prefix}-80"
@@ -69,7 +68,7 @@ resource "aws_lb_target_group" "aws_lb_target_group_443" {
   }
 }
 
-# attach an instance to the target group 80
+# attach instances to the target group 80
 resource "aws_lb_target_group_attachment" "attach_tg_80" {
   count = length(aws_instance.aws_instance)
   target_group_arn = aws_lb_target_group.aws_lb_target_group_80.arn
@@ -77,7 +76,7 @@ resource "aws_lb_target_group_attachment" "attach_tg_80" {
   port             = 80
 }
 
-# attach an instance to the target group 443
+# attach instances to the target group 443
 resource "aws_lb_target_group_attachment" "attach_tg_443" {
   count = length(aws_instance.aws_instance)
   target_group_arn = aws_lb_target_group.aws_lb_target_group_443.arn
