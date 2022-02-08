@@ -30,7 +30,7 @@ resource "aws_instance" "aws_instance" {
   }
 
   tags = {
-    Name = var.aws_instance_name
+    Name = var.aws_prefix
   }
 
   # SSH into the instance
@@ -45,7 +45,7 @@ resource "aws_instance" "aws_instance" {
   # run docker install command
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_version} --acme-domain ${var.aws_route_record_name}.${var.aws_route_zone_name}"
+      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_version} --acme-domain ${var.aws_prefix}.${var.aws_route_zone_name}"
     ]
   }
 }
@@ -67,7 +67,7 @@ data "aws_route53_zone" "zone" {
 # create a route53 record using the aws_instance
 resource "aws_route53_record" "route_53_record" {
   zone_id = data.aws_route53_zone.zone.zone_id
-  name    = var.aws_route_record_name
+  name    = var.aws_prefix
   type    = "A" 
   ttl     = "300"
   records = [aws_instance.aws_instance.public_ip]
@@ -79,19 +79,22 @@ output "route_53_record" {
 }
 
 ############################# V A R I A B L E S #############################
+variable "aws_prefix" {}
+
 variable "aws_region" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "aws_ami" {}
 variable "aws_instance_type" {}
-variable "aws_subnet" {}
+variable "aws_subnet_a" {}
+variable "aws_subnet_b" {}
+variable "aws_subnet_c" {}
 variable "aws_security_group" {}
 variable "aws_key_name" {}
 variable "aws_instance_size" {}
-variable "aws_instance_name" {}
+variable "aws_vpc" {}
 
 variable "aws_route_zone_name" {}
-variable "aws_route_record_name" {}
 
 variable "ssh_private_key_path" {}
 
