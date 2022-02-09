@@ -1,10 +1,12 @@
-### Terraform script to create a single node Rancher server in aws ### 
+### Terraform script to create a high availability Rancher server in aws ### 
 
 The script:
-1. creates an instance in aws
-2. ssh into the instance 
-3. runs a docker command for rancher
-4. creates a route53 record so you can access your server using dns record
+1. creates 3 instances in aws
+2. creates target groups for ports 80 and 443
+3. creates a load balancer
+4. create a route 53 record
+5. uses RKE to create a k8s cluster
+6. uses helm to install certs and rancher
 
 NOTE: 
 as you can see almost all parameters are using variables but the values for those variables are not present. I store them in a `.sh` file on my local and run `./variables.sh` before running `terraform apply`.
