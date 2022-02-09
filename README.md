@@ -1,6 +1,12 @@
 Terraform scripts to create Rancher servers
 
-This is a variables.sh file with environment variables for this script (fill out with your values):
+Single node docker install Rancher server with Route53 record 
+https://github.com/sgapanovich/rancher-terraform/tree/main/single-docker-install
+
+High availability Rancher server 
+https://github.com/sgapanovich/rancher-terraform/tree/main/high-availability
+
+This is a template for the `variables.sh` file with environment variables for scripts to use (fill out with your values):
 ```
 # aws creds
 export TF_VAR_aws_region=
