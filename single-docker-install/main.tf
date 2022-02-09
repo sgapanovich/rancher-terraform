@@ -45,7 +45,7 @@ resource "aws_instance" "aws_instance" {
   # run docker install command
   provisioner "remote-exec" {
     inline = [
-      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_version} --acme-domain ${var.aws_prefix}.${var.aws_route_zone_name}"
+      "sudo docker run -d --privileged --restart=unless-stopped -p 80:80 -p 443:443 -e CATTLE_BOOTSTRAP_PASSWORD=${var.rancher_password} rancher/rancher:${var.rancher_tag_version} --acme-domain ${var.aws_prefix}.${var.aws_route_zone_name}"
     ]
   }
 }
@@ -79,8 +79,9 @@ output "route_53_record" {
 }
 
 ############################# V A R I A B L E S #############################
+# not all variables listed below are needed for this set up to work
+# values for these variables are stored in a `variables.sh` file (see README)
 variable "aws_prefix" {}
-
 variable "aws_region" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
@@ -93,10 +94,9 @@ variable "aws_security_group" {}
 variable "aws_key_name" {}
 variable "aws_instance_size" {}
 variable "aws_vpc" {}
-
 variable "aws_route_zone_name" {}
-
 variable "ssh_private_key_path" {}
-
-variable "rancher_version" {}
+variable "kube_config_path" {}
+variable "rancher_tag_version" {}
+variable "rancher_chart_version" {}
 variable "rancher_password" {}
