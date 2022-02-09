@@ -1,10 +1,9 @@
-Terraform scripts to create Rancher servers
+### Terraform scripts to create Rancher servers ###
 
-Single node docker install Rancher server with Route53 record 
-https://github.com/sgapanovich/rancher-terraform/tree/main/single-docker-install
+Single node docker install Rancher server with Route53 record [Signle node Rancher](https://github.com/sgapanovich/rancher-terraform/tree/main/single-docker-install)
 
-High availability Rancher server 
-https://github.com/sgapanovich/rancher-terraform/tree/main/high-availability
+High availability Rancher server [HA Rancher](https://github.com/sgapanovich/rancher-terraform/tree/main/high-availability)
+
 
 This is a template for the `variables.sh` file with environment variables for scripts to use (fill out with your values):
 ```
