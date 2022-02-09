@@ -256,6 +256,8 @@ resource "helm_release" "rancher" {
 }
 
 ############################# V A R I A B L E S #############################
+# not all variables listed below are needed for this set up to work
+# values for these variables are stored in a `variables.sh` file (see README)
 variable "aws_prefix" {}
 variable "aws_region" {}
 variable "aws_access_key" {}
