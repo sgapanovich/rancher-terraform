@@ -1,2 +1,5 @@
+# ignore mac files
 .DS_Store
-.variables.sh
+
+# ignore sh scripts
+*.sh
