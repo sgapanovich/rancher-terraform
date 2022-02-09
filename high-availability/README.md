@@ -9,7 +9,7 @@ The script:
 6. uses helm to install certs and rancher
 
 NOTE: 
-as you can see almost all parameters are using variables but the values for those variables are not present. I store them in a `.sh` file on my local and run `./variables.sh` before running `terraform apply`.
+as you can see almost all parameters are using variables but the values for those variables are not present. I store them in a `.sh` file on my local and run `source variables.sh` before running `terraform apply`.
 
 This is a variables.sh file with environment variables for this script (fill out with your values):
 ```

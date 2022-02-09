@@ -5,7 +5,7 @@ Single node docker install Rancher server with Route53 record [Single node Ranch
 High availability Rancher server [HA Rancher](https://github.com/sgapanovich/rancher-terraform/tree/main/high-availability)
 
 
-This is a template for the `variables.sh` file with environment variables for scripts to use. You will need to fill out with your values and run the script `./variables.sh` before running `terraform apply`
+This is a template for the `variables.sh` file with environment variables for scripts to use. You will need to fill out with your values and run the script `source variables.sh` before running `terraform apply`
 ```
 # aws creds
 export TF_VAR_aws_region=
